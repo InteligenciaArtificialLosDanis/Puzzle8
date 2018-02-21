@@ -205,6 +205,11 @@ Prefab:
       propertyPath: PosCorrectaY
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114930048914441814, guid: 933f85c7467f09c49ba9714a00dc721e,
+        type: 2}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 1871066883}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 933f85c7467f09c49ba9714a00dc721e, type: 2}
   m_IsPrefabParent: 0
@@ -252,15 +257,20 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1057148461547380, guid: 933f85c7467f09c49ba9714a00dc721e, type: 2}
-      propertyPath: m_Name
-      value: Pieza 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114930048914441814, guid: 933f85c7467f09c49ba9714a00dc721e,
         type: 2}
       propertyPath: empty
       value: 
       objectReference: {fileID: 1628800826}
+    - target: {fileID: 114930048914441814, guid: 933f85c7467f09c49ba9714a00dc721e,
+        type: 2}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 1871066883}
+    - target: {fileID: 1057148461547380, guid: 933f85c7467f09c49ba9714a00dc721e, type: 2}
+      propertyPath: m_Name
+      value: Pieza 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 933f85c7467f09c49ba9714a00dc721e, type: 2}
   m_IsPrefabParent: 0
@@ -406,6 +416,11 @@ Prefab:
       propertyPath: empty
       value: 
       objectReference: {fileID: 1628800826}
+    - target: {fileID: 114930048914441814, guid: 933f85c7467f09c49ba9714a00dc721e,
+        type: 2}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 1871066883}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 933f85c7467f09c49ba9714a00dc721e, type: 2}
   m_IsPrefabParent: 0
@@ -482,6 +497,11 @@ Prefab:
       propertyPath: PosCorrectaX
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114930048914441814, guid: 933f85c7467f09c49ba9714a00dc721e,
+        type: 2}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 1871066883}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 933f85c7467f09c49ba9714a00dc721e, type: 2}
   m_IsPrefabParent: 0
@@ -558,6 +578,11 @@ Prefab:
       propertyPath: PosCorrectaX
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114930048914441814, guid: 933f85c7467f09c49ba9714a00dc721e,
+        type: 2}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 1871066883}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 933f85c7467f09c49ba9714a00dc721e, type: 2}
   m_IsPrefabParent: 0
@@ -624,6 +649,11 @@ Prefab:
       propertyPath: PosCorrectaY
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114930048914441814, guid: 933f85c7467f09c49ba9714a00dc721e,
+        type: 2}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 1871066883}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 933f85c7467f09c49ba9714a00dc721e, type: 2}
   m_IsPrefabParent: 0
@@ -700,6 +730,11 @@ Prefab:
       propertyPath: PosCorrectaX
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114930048914441814, guid: 933f85c7467f09c49ba9714a00dc721e,
+        type: 2}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 1871066883}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 933f85c7467f09c49ba9714a00dc721e, type: 2}
   m_IsPrefabParent: 0
@@ -771,6 +806,11 @@ Prefab:
       propertyPath: PosCorrectaX
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114930048914441814, guid: 933f85c7467f09c49ba9714a00dc721e,
+        type: 2}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 1871066883}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 933f85c7467f09c49ba9714a00dc721e, type: 2}
   m_IsPrefabParent: 0
@@ -782,6 +822,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1628800827}
+  - component: {fileID: 1628800828}
   m_Layer: 0
   m_Name: Hueco
   m_TagString: Untagged
@@ -802,6 +843,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1628800828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1628800826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab23b707cddefb4ebd15db25ed0551e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matrizX: 0
+  matrizY: 0
 --- !u!1 &1871066883
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,8 +893,6 @@ MonoBehaviour:
   - {fileID: 1127983861}
   - {fileID: 520148787}
   empty: {fileID: 1628800826}
-  fichaJuego: {fileID: 0}
-  emptyJuego: {fileID: 0}
 --- !u!4 &1871066885
 Transform:
   m_ObjectHideFlags: 0

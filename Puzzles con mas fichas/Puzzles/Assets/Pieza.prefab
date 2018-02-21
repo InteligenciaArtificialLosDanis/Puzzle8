@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 65411035800215116}
   - component: {fileID: 23864985182033808}
   - component: {fileID: 114930048914441814}
-  - component: {fileID: 114025818038917576}
   m_Layer: 9
   m_Name: Pieza
   m_TagString: Pieza
@@ -183,20 +182,6 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
---- !u!114 &114025818038917576
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1057148461547380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02d0e975295d1f84395d1f49ef018c95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 1
-  PosCorrectaY: 0
-  PosCorrectaX: 0
 --- !u!114 &114930048914441814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -210,3 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pieza: {fileID: 1057148461547380}
   empty: {fileID: 0}
+  gm: {fileID: 0}
+  id: 0
+  PosCorrectaY: 0
+  PosCorrectaX: 0

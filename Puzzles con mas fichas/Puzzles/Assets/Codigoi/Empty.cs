@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Empty : MonoBehaviour {
-	int matrizX, matrizY;
+	public int matrizX, matrizY;
 	// Use this for initialization
 	void Start () {
 		

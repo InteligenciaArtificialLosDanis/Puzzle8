@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Ficha : MonoBehaviour {
-   public GameObject pieza;
+    public GameObject pieza;
     public GameObject empty;
+
+	public GameObject gm; //Game Manager
 
 	public int id;
 
-	int matrizX, matrizY;
+	 int matrizX, matrizY;
 
 	public int PosCorrectaY;
 	public int PosCorrectaX;
@@ -29,9 +31,12 @@ public class Ficha : MonoBehaviour {
 
     void OnMouseDown()
     {
-        posPieza = pieza.transform.position;
-        pieza.transform.position = empty.transform.position;
-        empty.transform.position = posPieza;
+		//Si es true, entonces la matriz ya viene cambiada
+		if (gm.GetComponent<GameManager>().movimientoLegal (pieza)) {
+			posPieza = pieza.transform.position;
+			pieza.transform.position = empty.transform.position;
+			empty.transform.position = posPieza;
+		}
     }
 
 	bool bienPuesto (int x, int y){
@@ -43,6 +48,11 @@ public class Ficha : MonoBehaviour {
 		matrizX = x;
 		matrizY = y;
 
+	}
+	public int getMatrizX(){ return matrizX;
+	}
+
+	public int getMatrizY(){ return matrizY;
 	}
 }
 
