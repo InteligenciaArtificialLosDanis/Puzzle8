@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Empty : MonoBehaviour {
-	int matrizX, matrizY;
+	public int filaEmpty, colEmpty;
 	// Use this for initialization
 	void Start () {
 		
@@ -14,10 +14,12 @@ public class Empty : MonoBehaviour {
 		
 	}
 
-	public void setPosMatriz (int x, int y){
+	public void setPosMatEmpty (int fila, int columna){
 
-		matrizX = x;
-		matrizY = y;
+		filaEmpty = fila;
+		colEmpty = columna;
 
 	}
+
+
 }

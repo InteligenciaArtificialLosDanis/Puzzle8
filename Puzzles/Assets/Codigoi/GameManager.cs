@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public GameObject[] Fichas;
+	//int[] fichasOrdenadas = { 1, 2, 3, 4, 5, 6, 7, 8 }; 
 	public GameObject empty;
 
     public GameObject[,] tablero;
 
-    bool[] usados = new bool[8];
+   
 	bool fin = false;
 
 
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour {
     void Start () {
         tablero = new GameObject[3, 3];
 
-        int i;			//Itera sobre fichas
+        int i = 0;			//Itera sobre fichas
         int y = 2;		//Posicion y
         int x = -4;		//Posicion X
 
@@ -27,21 +28,17 @@ public class GameManager : MonoBehaviour {
             {
 				if (f == 2 && c == 2) {  
 					tablero [f, c] = Instantiate (empty, new Vector3 (x, y, 0), Quaternion.identity) as GameObject;
-                    empty.GetComponent<Ficha>().setPosMatriz(f, c);
+					tablero [f, c].GetComponent<Empty>().setPosMatEmpty(f, c);
                 }
 
-                do
-                {
-                    i = Random.Range(0, 8);
-                }
-                while (usados[i] == true);
+				else{
+	                tablero[f, c] = Instantiate(Fichas[i], new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+					Debug.Log ("cout " + f + ", " + c);
+					tablero[f, c].GetComponent<Ficha>().setPosMatriz(f, c);
 
-                tablero[f, c] = Instantiate(Fichas[i], new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-                usados[i] = true;
-
-                Fichas[i].GetComponent<Ficha>().setPosMatriz(f, c);
-
-                x = x + 2;  //Movemos la X
+					i++;		//Pasamos a la siguiente ficha
+	                x = x + 2;  //Movemos la X
+				}
             }
             x = -4;         //Restauramos la X
             y = y - 2;      //Bajamos la fila
@@ -53,7 +50,7 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
-    /*bool movimientoLegal(GameObject ficha){
+   public bool movimientoLegal(GameObject ficha){
         //Si la partida no se ha acabado
 
         if (fin)
@@ -61,28 +58,30 @@ public class GameManager : MonoBehaviour {
         //Pregunta si hay un gameobject con tag empty, y si lo hay devuelve true para mover la ficha
         else
         {
-            int fila = ficha.GetComponent<Ficha>().getMatrizY();
-            int columna = ficha.GetComponent<Ficha>().getMatrizX();
+            int fila = ficha.GetComponent<Ficha>().filaMat;
+			int columna = ficha.GetComponent<Ficha> ().colMat;
+
+			Debug.Log ("SOY "+ ficha+ " Mi fila es " +  ficha.GetComponent<Ficha>().filaMat  + " y mi columna " + ficha.GetComponent<Ficha> ().colMat);
             //Arriba
-            if (fila - 1 >= 0 && tablero[fila - 1, columna] == empty)
+			if (fila - 1 >= 0 && tablero[fila - 1, columna].tag == "Empty")
             {
                 swapPosMatriz(ficha);
                 return true;
             }
             //Abajo
-            if (fila + 1 <= 2 && tablero[fila + 1, columna] == empty)
+			if (fila + 1 <= 2 && tablero[fila + 1, columna].tag == "Empty")
             {
                 swapPosMatriz(ficha);
                 return true;
             }
             //Derecha
-            if (columna + 1 <= 2 && tablero[fila, columna + 1] == empty)
+			if (columna + 1 <= 2 && tablero[fila, columna + 1].tag == "Empty")
             {
                 swapPosMatriz(ficha);
                 return true;
             }
             //Izquierda
-            if (columna - 1 >= 0 && tablero[fila, columna - 1] == empty)
+			if (columna - 1 >= 0 && tablero[fila, columna - 1].tag == "Empty")
             {
                 swapPosMatriz(ficha);
                 return true;
@@ -93,19 +92,19 @@ public class GameManager : MonoBehaviour {
         }
 
 
-    }*/
+    }
 
-    /*void swapPosMatriz(GameObject ficha)
+    void swapPosMatriz(GameObject ficha)
     {
         //Guardo la posicion de ficha. Le asigno la posicion de empty a la ficha
         //Después, meto la posicion guardada de la ficha al empty.
-        int fichaF = ficha.GetComponent<Ficha>().getMatrizY();
-        int fichaC = ficha.GetComponent<Ficha>().getMatrizX();
+		int fichaF = ficha.GetComponent<Ficha>().filaMat;
+		int fichaC = ficha.GetComponent<Ficha>().colMat;
 
-        ficha.GetComponent<Ficha>().setPosMatriz(empty.GetComponent<Empty>().matrizX, empty.GetComponent<Empty>().matrizY);
-
-        empty.GetComponent<Empty>().setPosMatriz(fichaC, fichaF);
-    }*/
+		ficha.GetComponent<Ficha>().setPosMatriz(empty.GetComponent<Empty>().filaEmpty, empty.GetComponent<Empty>().colEmpty);
+		//SIGUE DETECTANDO EL EMTY ORIGINAL, NO LA COPIA QUE INSTANCIAMOS
+        empty.GetComponent<Empty>().setPosMatEmpty(fichaC, fichaF);
+    }
 
 
     void partidaAcabada() {

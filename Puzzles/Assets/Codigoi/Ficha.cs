@@ -9,10 +9,10 @@ public class Ficha : MonoBehaviour {
 
     //public int id;
 
-    int matrizX, matrizY;
+   public int filaMat, colMat;
 
-	public int PosCorrectaY;
-	public int PosCorrectaX;
+	public int filaCorrecta;
+	public int colCorrecta;
 
 
     //float piezaX, piezaY, piezaZ;
@@ -20,7 +20,7 @@ public class Ficha : MonoBehaviour {
    
     // Use this for initialization
     void Start () {
-      
+
 	}
 	
 	// Update is called once per frame
@@ -30,23 +30,27 @@ public class Ficha : MonoBehaviour {
 
     void OnMouseDown()
     {
-        //if (gm.GetComponent<GameManager>().movimientoLegal(pieza))
-        //{
+        if (gm.GetComponent<GameManager>().movimientoLegal(pieza))
+        {
+			Debug.Log ("Movimiento correcto :D");
             posPieza = pieza.transform.position;
             pieza.transform.position = empty.transform.position;
             empty.transform.position = posPieza;
-        //}
+        }
     }
 
-	bool bienPuesto (int x, int y){
-		return (x == PosCorrectaX && y == PosCorrectaY);
+	bool bienPuesto (int fila, int columna){
+		return (fila == filaCorrecta && columna == colCorrecta);
 	}
 
-	public void setPosMatriz (int x, int y){
+	public void setPosMatriz (int fila, int columna){
 
-		matrizX = x;
-		matrizY = y;
+		filaMat = fila;
+		colMat  = columna;
+
+		Debug.Log ("Tengo fila" + filaMat + " Y la columna" + colMat);
 
 	}
+
 }
 
