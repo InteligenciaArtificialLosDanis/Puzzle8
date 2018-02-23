@@ -32,7 +32,6 @@ public class Ficha : MonoBehaviour {
     {
         if (gm.GetComponent<GameManager>().movimientoLegal(pieza))
         {
-			Debug.Log ("Movimiento correcto :D");
             posPieza = pieza.transform.position;
             pieza.transform.position = empty.transform.position;
             empty.transform.position = posPieza;
@@ -48,7 +47,7 @@ public class Ficha : MonoBehaviour {
 		filaMat = fila;
 		colMat  = columna;
 
-		Debug.Log ("Tengo fila" + filaMat + " Y la columna" + colMat);
+		Debug.Log ("soy "+ this+ " Tengo fila" + filaMat + " Y la columna" + colMat);
 
 	}
 

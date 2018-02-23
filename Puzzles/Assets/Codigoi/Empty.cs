@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Empty : MonoBehaviour {
-	public int filaEmpty, colEmpty;
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -14,12 +14,6 @@ public class Empty : MonoBehaviour {
 		
 	}
 
-	public void setPosMatEmpty (int fila, int columna){
-
-		filaEmpty = fila;
-		colEmpty = columna;
-
-	}
 
 
 }
