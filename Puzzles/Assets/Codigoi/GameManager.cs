@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public GameObject[] Fichas;
-	//int[] fichasOrdenadas = { 1, 2, 3, 4, 5, 6, 7, 8 }; 
+	//int[,] fichasOrdenadas = { 1, 2, 3, 4, 5, 6, 7, 8 }; 
 	public GameObject empty;
 
     public GameObject[,] tablero;
