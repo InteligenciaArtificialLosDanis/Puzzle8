@@ -15,12 +15,14 @@ public class Ficha : MonoBehaviour {
 	public int colCorrecta;
 
 
+
     //float piezaX, piezaY, piezaZ;
     Vector3 posPieza;
+	Vector3 PosOriginal;
    
     // Use this for initialization
     void Start () {
-
+		PosOriginal = pieza.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -47,8 +49,12 @@ public class Ficha : MonoBehaviour {
 		filaMat = fila;
 		colMat  = columna;
 
-		Debug.Log ("soy "+ this+ " Tengo fila" + filaMat + " Y la columna" + colMat);
+		//Debug.Log ("soy "+ this+ " Tengo fila" + filaMat + " Y la columna" + colMat);
 
+	}
+
+	public void reiniciaFicha (){
+		pieza.transform.position = PosOriginal;
 	}
 
 }

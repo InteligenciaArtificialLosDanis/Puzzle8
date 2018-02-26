@@ -17,34 +17,34 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         tablero = new GameObject[3, 3];
-
-        int i = 0;			//Itera sobre fichas
-
-        for (int f = 0; f < 3; f++) //FILS
-        {
-            for (int c = 0; c < 3; c++) //COLS
-            {
-				if (f == 2 && c == 2) {  
-					tablero [f, c] = empty;
-                }
-
-				else{
-	                //tablero[f, c] = Instantiate(Fichas[i], new Vector3(x, y, 0), Quaternion.identity) as GameObject;
-                    tablero[f, c] = Fichas[i];
-					//Debug.Log ("cout " + f + ", " + c);
-					tablero[f, c].GetComponent<Ficha>().setPosMatriz(f, c);
-
-					i++;		//Pasamos a la siguiente ficha
-	               
-				}
-            }
-          
-        }
+		generaMatrizOrdenada();
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public void generaMatrizOrdenada(){
+		int i = 0;			//Itera sobre fichas
+		
+		for (int f = 0; f < 3; f++) { //FILS
+			for (int c = 0; c < 3; c++) { //COLS
+				if (f == 2 && c == 2) {  
+					
+					tablero [f, c] = empty;
+					empty.GetComponent<Empty> ().reiniciaEmpty ();
+				} else {
+					Fichas[i].GetComponent<Ficha>().reiniciaFicha();
+					tablero [f, c] = Fichas [i];
+					//Debug.Log ("cout " + f + ", " + c);
+					tablero [f, c].GetComponent<Ficha> ().setPosMatriz (f, c);
+
+					i++;		//Pasamos a la siguiente ficha
+
+				}
+			}
+		}
 	}
 
    public bool movimientoLegal(GameObject ficha){
