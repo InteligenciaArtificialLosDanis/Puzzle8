@@ -7,7 +7,7 @@ public class Ficha : MonoBehaviour {
     public GameObject empty;
     public GameObject gm; //Game Manager
 
-    //public int id;
+    public int id;
 
    public int filaMat, colMat;
 

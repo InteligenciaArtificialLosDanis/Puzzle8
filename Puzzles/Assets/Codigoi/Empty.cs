@@ -5,6 +5,7 @@ using UnityEngine;
 public class Empty : MonoBehaviour {
 
 	public GameObject empty;
+    public int id;
 
 	Vector3 posOriginal;
 	// Use this for initialization
