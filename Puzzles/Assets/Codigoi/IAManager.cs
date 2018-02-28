@@ -2,19 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/* 
- //COSAS QUE NECESITAMOS
 
-  -Lista de nodos: para simular los pasos que hemos ido tomando
-  - Busque el empty 
-  - Comparar un tablero con otro (para saber si son iguales y ya está explorado)
-  - Explorado: Lista de tableros que ya han sido explorados (pos numericas y empty)
-
-   -Frontera: Cola de nodos
-   -Costes de todos los caminos :D
-
-     
-     */
 
 //Enumerado de direcciones, que definen el movimiento que ha hecho el hueco desde el nodo padre
 //para llegar a la matriz del nodo I-ésimo
@@ -75,7 +63,7 @@ public class IAManager : MonoBehaviour {
     //Para meter los metodos en la pila mas comodamente
 
     //Igualmente se puede hacer por iteracion, y llamando a otro método pero yo que sé. Ambas formas son válidas :3
-    void BFS()
+    public void BFS()
     {
         int[,] tableroIni = convierteMatrizGOaInt();
         
@@ -120,7 +108,8 @@ public class IAManager : MonoBehaviour {
                                 if (esTableroFinal(hijo.tablero))
                                 {
                                     Debug.Log("SUUUUUUUUUUUUUUUUU");
-                                    //Llama al método de solución, que te va a construir una movida
+                                    //Llama al método de solución
+                                    DevuelveSolucion(hijo);
                                     fin = true;
                                 }
 

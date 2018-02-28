@@ -322,7 +322,6 @@
     <Compile Include="Assets\Codigoi\Ficha.cs" />
     <Compile Include="Assets\Codigoi\GameManager.cs" />
     <Compile Include="Assets\Codigoi\IAManager.cs" />
-    <Compile Include="Assets\Codigoi\OnClickReinicio.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
 					
 					tablero [f, c] = empty;
 					empty.GetComponent<Empty> ().reiniciaEmpty ();
+                    empty.GetComponent<Empty>().setPosMatriz(f, c);
 				} else {
 					Fichas[i].GetComponent<Ficha>().reiniciaFicha();
 					tablero [f, c] = Fichas [i];
@@ -94,19 +95,6 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    void swapPosMatriz(GameObject ficha, int filaEmpty, int columnaEmpty)
-    {
-        int fila = ficha.GetComponent<Ficha>().filaMat;
-        int columna = ficha.GetComponent<Ficha>().colMat;
-
-        tablero[fila, columna] = empty;
-        tablero[filaEmpty, columnaEmpty] = ficha;
-        ficha.GetComponent<Ficha>().setPosMatriz(filaEmpty, columnaEmpty);
-
-        //Set matriz de ambos
-
-
-    }
 
 
     bool partidaAcabada() {
@@ -129,20 +117,67 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-	void aplicaBSF(){
+	public void aplicaBSF(){
+
+        IAManager.GetComponent<IAManager>().BFS();
+
 		Stack<Movimiento> rutaSol = IAManager.GetComponent<IAManager>().movsSolucion;
-		while (rutaSol.Peek () != null) {
-		//Toma la pos del empty
-		
-		//Busca la ficha en el sentido dado por desapilar rutaSol
 
-		//Mueve esa ficha, actualizando la matriz del tablero 
+		while (rutaSol.Count != 0) {
+            //Toma la pos del empty
+            int filaEmpty = empty.GetComponent<Empty>().filaMat;
+            int colEmpty = empty.GetComponent<Empty>().colMat;
 
-		//Llamas luego a move para representar el movimiento en el editor
-		
-		//gg ez
-		
-		
-		}
+            //Busca la ficha en el sentido dado por desapilar rutaSol
+            //Mueve esa ficha -> actualizando la matriz del tablero 
+            //Llamas luego a move para representar el movimiento en el editor
+            Movimiento actual = rutaSol.Pop();
+            
+            switch (actual)
+            {
+                case Movimiento.Arriba:
+                    swapPosMatriz(tablero[filaEmpty - 1, colEmpty], filaEmpty, colEmpty);
+                    tablero[filaEmpty - 1, colEmpty].GetComponent<Ficha>().move();
+                 break;
+
+                case Movimiento.Abajo:
+                    swapPosMatriz(tablero[filaEmpty + 1, colEmpty], filaEmpty, colEmpty);
+                    tablero[filaEmpty + 1, colEmpty].GetComponent<Ficha>().move();
+                    break;
+
+
+                case Movimiento.Izquierda:
+                    swapPosMatriz(tablero[filaEmpty, colEmpty - 1], filaEmpty, colEmpty);
+                    tablero[filaEmpty, colEmpty - 1].GetComponent<Ficha>().move();
+                    break;
+
+                case Movimiento.Derecha:
+                    swapPosMatriz(tablero[filaEmpty + 1, colEmpty], filaEmpty, colEmpty);
+                    tablero[filaEmpty, colEmpty + 1].GetComponent<Ficha>().move();
+                    break;
+            }
+           
+
+            //gg ez
+
+
+        }
 	}
+
+
+    void swapPosMatriz(GameObject ficha, int filaEmpty, int columnaEmpty)
+    {
+        int fila = ficha.GetComponent<Ficha>().filaMat;
+        int columna = ficha.GetComponent<Ficha>().colMat;
+
+        tablero[fila, columna] = empty;
+        empty.GetComponent<Empty>().setPosMatriz(fila, columna);
+
+        tablero[filaEmpty, columnaEmpty] = ficha;
+        ficha.GetComponent<Ficha>().setPosMatriz(filaEmpty, columnaEmpty);
+
+        //Set matriz de ambos
+
+
+    }
 }
