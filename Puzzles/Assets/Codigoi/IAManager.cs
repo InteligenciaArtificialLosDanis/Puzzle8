@@ -46,6 +46,8 @@ public class IAManager : MonoBehaviour {
     public GameObject GM; //GameManager
 
     int[,] solucion;
+
+    Movimiento movsPosibles;
    
 	// Use this for initialization
 	void Start () {
@@ -72,23 +74,94 @@ public class IAManager : MonoBehaviour {
     //el tema de que un tablero transformado sea solucion, y por consiguiente vas subiendo el arbol y aprovechas
     //Para meter los metodos en la pila mas comodamente
 
-        //Igualmente se puede hacer por iteracion, y llamando a otro método pero yo que sé. Ambas formas son válidas :3
-    void BFS( Stack <Movimiento> movSolucion)
+    //Igualmente se puede hacer por iteracion, y llamando a otro método pero yo que sé. Ambas formas son válidas :3
+    void BFS()
     {
-        int[,] tablero = convierteMatrizGOaInt();
+        int[,] tableroIni = convierteMatrizGOaInt();
+        Stack<Movimiento> movSolucion;
 
         //Creamos el nodo inicial
-        Nodo raiz = new Nodo(tablero, Movimiento.No , null, 0);
+        Nodo raiz = new Nodo(tablero, Movimiento.No, null, 0);
 
         if (raiz.tablero == solucion) Debug.Log("De puta madre, has llegado a la solucion");
 
-        Stack<Nodo> frontera = new Stack<Nodo>();
-        frontera.Push(raiz);
-        
-        //COMO HAGO UN PUTO VECTOOORRRRR
+        Queue<Nodo> frontera = new Queue<Nodo>();
+        frontera.Enqueue(raiz);
+        if (frontera.Peek() == null) Debug.Log("SE HA ROTO QUE FLIPAS");
+
+        List<Nodo> explorado = new List<Nodo>(); //Lista de nodos explorados
+
+        bool fin = false;
+        while (!fin && frontera.Peek() != null)
+        {
+
+            Nodo front = frontera.Dequeue();
+            explorado.Add(front);
+
+            int filaEmpty, colEmpty;
+            filaEmpty = colEmpty = 0;
+            buscaEmpty(front.tablero, ref filaEmpty, ref colEmpty); //Buscamos el empty en la Matriz
+
+
+            //Para cada una de las direcciones posibles->
+            for (int i = 0; i < 4; i++)
+            {
+               
+                switch (i)
+                {
+                    case 1: //ARRIBA
+                        if (movimientoLegalIA(Movimiento.Arriba, filaEmpty, colEmpty))
+                        {
+                            int[,] tableroHijo = modeloTransicion(front.tablero, Movimiento.Arriba, filaEmpty, colEmpty);
+                            Nodo hijo = new Nodo(tableroHijo, Movimiento.Arriba, front, front.coste + 1);
+
+                            if(!frontera.Contains(hijo) && !explorado.Contains(hijo))
+                            {
+                                if (esTableroFinal(hijo.tablero))
+                                {
+                                    Debug.Log("SUUUUUUUUUUUUUUUUU");
+                                    //Llama al método de solución, que te va a construir una movida
+                                    fin = true;
+                                }
+
+                                else
+                                {
+                                    frontera.Enqueue(hijo);
+                                    explorado.Add(hijo);
+                                }
+                            }
+                        }
+                        break;
+                }
+
+
+            }
 
 
 
+        }
+    }
+
+    bool movimientoLegalIA(Movimiento dir, int emptyF, int emptyC)
+        {
+
+        switch (dir)
+        {
+            case Movimiento.Arriba:
+                if (emptyF - 1 >= 0) return true;
+             break;
+            case Movimiento.Abajo:
+                if (emptyF + 1 <= 2) return true;
+                break;
+            case Movimiento.Derecha:
+                if (emptyC + 1 <= 2) return true;
+                break;
+            case Movimiento.Izquierda:
+                if (emptyC - 1 >= 0) return true;
+                break;
+        }
+
+        return false;
     }
 
     int [,] convierteMatrizGOaInt()
@@ -112,15 +185,9 @@ public class IAManager : MonoBehaviour {
     }
 
     //Asumo que cuando este método es llamado, el movimiento es legal
-    int[,] modeloTransicion(int[,] tablero, Movimiento nuevoMov)
+    int[,] modeloTransicion(int[,] tablero, Movimiento nuevoMov, int filaEmpty, int colEmpty)
     {
-        
-
-        //Buscamos el empty
-        int filaEmpty, colEmpty;
-        filaEmpty = colEmpty = 0;
-        buscaEmpty(tablero, ref filaEmpty, ref colEmpty); //Buscamos el empty en la Matriz
-
+       
         int aux; //Valor auxiliar para el swap
 
         //Lo desplazamos en funcion del movimiento dado
