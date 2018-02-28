@@ -81,7 +81,7 @@ public class IAManager : MonoBehaviour {
         Stack<Movimiento> movSolucion;
 
         //Creamos el nodo inicial
-        Nodo raiz = new Nodo(tablero, Movimiento.No, null, 0);
+        Nodo raiz = new Nodo(tableroIni, Movimiento.No, null, 0);
 
         if (raiz.tablero == solucion) Debug.Log("De puta madre, has llegado a la solucion");
 
@@ -109,7 +109,7 @@ public class IAManager : MonoBehaviour {
                
                 switch (i)
                 {
-                    case 1: //ARRIBA
+                    case 0: //ARRIBA
                         if (movimientoLegalIA(Movimiento.Arriba, filaEmpty, colEmpty))
                         {
                             int[,] tableroHijo = modeloTransicion(front.tablero, Movimiento.Arriba, filaEmpty, colEmpty);
@@ -127,18 +127,85 @@ public class IAManager : MonoBehaviour {
                                 else
                                 {
                                     frontera.Enqueue(hijo);
-                                    explorado.Add(hijo);
+                                 
                                 }
                             }
                         }
                         break;
+                    case 1: //ABAJO
+                        if (movimientoLegalIA(Movimiento.Abajo, filaEmpty, colEmpty))
+                        {
+                            int[,] tableroHijo = modeloTransicion(front.tablero, Movimiento.Abajo, filaEmpty, colEmpty);
+                            Nodo hijo = new Nodo(tableroHijo, Movimiento.Abajo, front, front.coste + 1);
+
+                            if (!frontera.Contains(hijo) && !explorado.Contains(hijo))
+                            {
+                                if (esTableroFinal(hijo.tablero))
+                                {
+                                    Debug.Log("SUUUUUUUUUUUUUUUUU");
+                                    //Llama al método de solución, que te va a construir una movida
+                                    fin = true;
+                                }
+
+                                else
+                                {
+                                    frontera.Enqueue(hijo);
+
+                                }
+                            }
+                        }
+                        break;
+
+                    case 2: //DERECHA
+                        if (movimientoLegalIA(Movimiento.Derecha, filaEmpty, colEmpty))
+                        {
+                            int[,] tableroHijo = modeloTransicion(front.tablero, Movimiento.Derecha, filaEmpty, colEmpty);
+                            Nodo hijo = new Nodo(tableroHijo, Movimiento.Derecha, front, front.coste + 1);
+
+                            if (!frontera.Contains(hijo) && !explorado.Contains(hijo))
+                            {
+                                if (esTableroFinal(hijo.tablero))
+                                {
+                                    Debug.Log("SUUUUUUUUUUUUUUUUU");
+                                    //Llama al método de solución, que te va a construir una movida
+                                    fin = true;
+                                }
+
+                                else
+                                {
+                                    frontera.Enqueue(hijo);
+
+                                }
+                            }
+                        }
+                        break;
+
+                    case 3: //IZQUIERDA
+                        if (movimientoLegalIA(Movimiento.Izquierda, filaEmpty, colEmpty))
+                        {
+                            int[,] tableroHijo = modeloTransicion(front.tablero, Movimiento.Izquierda, filaEmpty, colEmpty);
+                            Nodo hijo = new Nodo(tableroHijo, Movimiento.Izquierda, front, front.coste + 1);
+
+                            if (!frontera.Contains(hijo) && !explorado.Contains(hijo))
+                            {
+                                if (esTableroFinal(hijo.tablero))
+                                {
+                                    Debug.Log("SUUUUUUUUUUUUUUUUU");
+                                    //Llama al método de solución, que te va a construir una movida
+                                    fin = true;
+                                }
+
+                                else
+                                {
+                                    frontera.Enqueue(hijo);
+
+                                }
+                            }
+                        }
+                        break;
+
                 }
-
-
             }
-
-
-
         }
     }
 
