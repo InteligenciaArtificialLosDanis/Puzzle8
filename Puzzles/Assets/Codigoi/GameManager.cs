@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class GameManager : MonoBehaviour {
     public GameObject[] Fichas;
 	//int[,] fichasOrdenadas = { 1, 2, 3, 4, 5, 6, 7, 8 }; 
 	public GameObject empty;
+
+	public GameObject IAManager;
 
     public GameObject[,] tablero;
 
@@ -62,28 +65,24 @@ public class GameManager : MonoBehaviour {
             //Arriba
 			if (fila - 1 >= 0 && tablero[fila - 1, columna].tag == "Empty")
             {
-                Debug.Log(tablero[fila - 1, columna]);
                 swapPosMatriz(ficha, fila - 1, columna);
                 return true;
             }
             //Abajo
 			if (fila + 1 <= 2 && tablero[fila + 1, columna].tag == "Empty")
-            {
-                Debug.Log(tablero[fila + 1, columna]);
-                swapPosMatriz(ficha, fila + 1, columna);
+            {         
+               swapPosMatriz(ficha, fila + 1, columna);
                 return true;
             }
             //Derecha
 			if (columna + 1 <= 2 && tablero[fila, columna + 1].tag == "Empty")
-            {
-                Debug.Log(tablero[fila , columna +1]);
+            { 
                 swapPosMatriz(ficha, fila, columna + 1);
                 return true;
             }
             //Izquierda
 			if (columna - 1 >= 0 && tablero[fila, columna - 1].tag == "Empty")
             {
-                Debug.Log(tablero[fila, columna - 1]);
                 swapPosMatriz(ficha, fila, columna - 1);
                 return true;
             }
@@ -110,12 +109,40 @@ public class GameManager : MonoBehaviour {
     }
 
 
-    void partidaAcabada() {
+    bool partidaAcabada() {
 		//Comprueba todas las fichas a ver si están bien puestas :) (while)
 
-		//If (todas) cout << YAAAAAY :3
-		//else no.
+		bool correcto = true;
 
+		int f, c;
+		f = c = 0;
+		while (correcto && f < 3) {
+			while (correcto && c < 3) {
+				if (!tablero [f, c].GetComponent<Ficha> ().bienPuesta (f, c))
+					correcto = false;
+				c++;
+			}
+			f++;
+		}
 
+		return correcto;
+
+	}
+
+	void aplicaBSF(){
+		Stack<Movimiento> rutaSol = IAManager.GetComponent<IAManager>().movsSolucion;
+		while (rutaSol.Peek () != null) {
+		//Toma la pos del empty
+		
+		//Busca la ficha en el sentido dado por desapilar rutaSol
+
+		//Mueve esa ficha, actualizando la matriz del tablero 
+
+		//Llamas luego a move para representar el movimiento en el editor
+		
+		//gg ez
+		
+		
+		}
 	}
 }

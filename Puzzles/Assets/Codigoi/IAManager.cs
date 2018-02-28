@@ -45,9 +45,9 @@ public class IAManager : MonoBehaviour {
 
     public GameObject GM; //GameManager
 
-    int[,] solucion;
+    int[,] solucion = new int[3,3];
 
-    Movimiento movsPosibles;
+	public Stack<Movimiento> movsSolucion;	//Stack de movimientos
    
 	// Use this for initialization
 	void Start () {
@@ -78,7 +78,7 @@ public class IAManager : MonoBehaviour {
     void BFS()
     {
         int[,] tableroIni = convierteMatrizGOaInt();
-        Stack<Movimiento> movSolucion;
+        
 
         //Creamos el nodo inicial
         Nodo raiz = new Nodo(tableroIni, Movimiento.No, null, 0);
@@ -143,7 +143,8 @@ public class IAManager : MonoBehaviour {
                                 if (esTableroFinal(hijo.tablero))
                                 {
                                     Debug.Log("SUUUUUUUUUUUUUUUUU");
-                                    //Llama al método de solución, que te va a construir una movida
+                                    //Llama al método de solución
+									DevuelveSolucion(hijo);
                                     fin = true;
                                 }
 
@@ -167,7 +168,8 @@ public class IAManager : MonoBehaviour {
                                 if (esTableroFinal(hijo.tablero))
                                 {
                                     Debug.Log("SUUUUUUUUUUUUUUUUU");
-                                    //Llama al método de solución, que te va a construir una movida
+                                    //Llama al método de solución
+									DevuelveSolucion(hijo);
                                     fin = true;
                                 }
 
@@ -191,7 +193,8 @@ public class IAManager : MonoBehaviour {
                                 if (esTableroFinal(hijo.tablero))
                                 {
                                     Debug.Log("SUUUUUUUUUUUUUUUUU");
-                                    //Llama al método de solución, que te va a construir una movida
+                                    //Llama al método de solución
+									DevuelveSolucion(hijo);
                                     fin = true;
                                 }
 
@@ -208,6 +211,14 @@ public class IAManager : MonoBehaviour {
             }
         }
     }
+
+	//Método recursivo que carga en una pila (LIFO) los movimientos realizados hasta la solucion
+	void DevuelveSolucion(Nodo nodoSol){
+		if(nodoSol.padre != null){
+			movsSolucion.Push (nodoSol.movRealizado);
+			DevuelveSolucion (nodoSol.padre);
+		}
+	}
 
     bool movimientoLegalIA(Movimiento dir, int emptyF, int emptyC)
         {
@@ -260,27 +271,27 @@ public class IAManager : MonoBehaviour {
         //Lo desplazamos en funcion del movimiento dado
         switch (nuevoMov)
         {
-            case Movimiento.Arriba:
+		case Movimiento.Derecha:
                 aux = tablero[filaEmpty, colEmpty + 1];
-                tablero[filaEmpty, colEmpty + 1] = 0;
+			tablero[filaEmpty, colEmpty + 1] = 0;
                 tablero[filaEmpty, colEmpty] = aux;
              break;
 
-            case Movimiento.Abajo:
+		case Movimiento.Izquierda:
                 aux = tablero[filaEmpty, colEmpty - 1];
-                tablero[filaEmpty, colEmpty - 1] = 0;
+			tablero[filaEmpty, colEmpty - 1] = 0;
                 tablero[filaEmpty, colEmpty] = aux;
                 break;
 
-            case Movimiento.Derecha:
+		case Movimiento.Arriba:
+                aux = tablero[filaEmpty -1, colEmpty];
+                tablero[filaEmpty - 1, colEmpty] = 0;
+                tablero[filaEmpty, colEmpty] = aux;
+                break;
+
+        case Movimiento.Abajo:
                 aux = tablero[filaEmpty +1, colEmpty];
                 tablero[filaEmpty + 1, colEmpty] = 0;
-                tablero[filaEmpty, colEmpty] = aux;
-                break;
-
-            case Movimiento.Izquierda:
-                aux = tablero[filaEmpty -1, colEmpty];
-                tablero[filaEmpty -1, colEmpty] = 0;
                 tablero[filaEmpty, colEmpty] = aux;
                 break;
         }

@@ -34,13 +34,11 @@ public class Ficha : MonoBehaviour {
     {
         if (gm.GetComponent<GameManager>().movimientoLegal(pieza))
         {
-            posPieza = pieza.transform.position;
-            pieza.transform.position = empty.transform.position;
-            empty.transform.position = posPieza;
+			move ();
         }
     }
 
-	bool bienPuesto (int fila, int columna){
+	public bool bienPuesta (int fila, int columna){
 		return (fila == filaCorrecta && columna == colCorrecta);
 	}
 
@@ -57,5 +55,10 @@ public class Ficha : MonoBehaviour {
 		pieza.transform.position = PosOriginal;
 	}
 
+	public void move(){
+		posPieza = pieza.transform.position;
+		pieza.transform.position = empty.transform.position;
+		empty.transform.position = posPieza;
+	}
 }
 

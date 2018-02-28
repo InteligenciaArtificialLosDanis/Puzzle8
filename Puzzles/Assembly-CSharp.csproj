@@ -54,6 +54,7 @@
      <Compile Include="Assets\Codigoi\Empty.cs" />
      <Compile Include="Assets\Codigoi\Ficha.cs" />
      <Compile Include="Assets\Codigoi\GameManager.cs" />
+     <Compile Include="Assets\Codigoi\IAManager.cs" />
      <Compile Include="Assets\Codigoi\OnClickReinicio.cs" />
  <Reference Include="Vuforia.UnityExtensions.Editor">
  <HintPath>c:/software/programacion/Unity2017p3/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Editor/Vuforia.UnityExtensions.Editor.dll</HintPath>
