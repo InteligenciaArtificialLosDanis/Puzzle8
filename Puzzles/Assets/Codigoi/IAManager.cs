@@ -47,7 +47,10 @@ public class IAManager : MonoBehaviour {
                 if (i == 2 && j == 2)
                     solucion[i, j] = 0;
                 else
+                {
                     solucion[i, j] = ficha;
+                    ficha++;
+                }
             }
         }
     }
@@ -57,7 +60,7 @@ public class IAManager : MonoBehaviour {
 		
 	}
 
-    //El bfs debería devolver una pila de movimientosss 
+    //El bfs debería devolver una pila de movimientos
     //Hostia puta lo mismo no sería mala idea que fuera recursivo, así controlas mejor
     //el tema de que un tablero transformado sea solucion, y por consiguiente vas subiendo el arbol y aprovechas
     //Para meter los metodos en la pila mas comodamente
@@ -262,13 +265,13 @@ public class IAManager : MonoBehaviour {
         {
 		case Movimiento.Derecha:
                 aux = tablero[filaEmpty, colEmpty + 1];
-			tablero[filaEmpty, colEmpty + 1] = 0;
+			    tablero[filaEmpty, colEmpty + 1] = 0;
                 tablero[filaEmpty, colEmpty] = aux;
              break;
 
 		case Movimiento.Izquierda:
                 aux = tablero[filaEmpty, colEmpty - 1];
-			tablero[filaEmpty, colEmpty - 1] = 0;
+			    tablero[filaEmpty, colEmpty - 1] = 0;
                 tablero[filaEmpty, colEmpty] = aux;
                 break;
 
@@ -294,7 +297,28 @@ public class IAManager : MonoBehaviour {
 
     bool esTableroFinal(int [,] tablero)
     {
-        return tablero == solucion; //¿Se puede hacer así? ¿O hay que hacer un bucle que vaya mirando uno por uno?
+        //return tablero == solucion; //¿Se puede hacer así? ¿O hay que hacer un bucle que vaya mirando uno por uno?
+
+        bool acabado = true;
+        int i = 0;
+        int j;
+        while (acabado && i < 3)
+        {
+            j = 0;
+
+            while (acabado && j < 3)
+            {
+
+                if (tablero[i, j] != solucion[i, j])
+                    acabado = false;
+
+                j++;
+            }
+
+            i++;
+        }
+
+        return acabado;
 
     }
     void buscaEmpty(int[,] tablero, ref int filaEmpty, ref int colEmpty)
