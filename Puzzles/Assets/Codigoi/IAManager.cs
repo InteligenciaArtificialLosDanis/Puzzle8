@@ -18,7 +18,7 @@ public class Nodo
         tablero = tablrAux;
         coste = c;
         movRealizado = operador;
-        padre = papi; //;) ♥
+        padre = papi;
     }
 
    
@@ -28,6 +28,69 @@ public class Nodo
    public Movimiento movRealizado;
    public Nodo padre;
 
+    
+    /*public static bool operator ==(Nodo a, Nodo b)
+    {
+        Debug.Log("He entrado en el operator == :3");
+        bool iguales = true;
+        int i = 0;
+        int j;
+        while (iguales && i < 3)
+        {
+            j = 0;
+
+            while (iguales && j < 3)
+            {
+
+                if (a.tablero[i, j] != b.tablero[i, j])
+                    iguales = false;
+
+                j++;
+            }
+
+            i++;
+        }
+        Debug.Log("He salido en el operator == :3");
+        return iguales;
+     
+    }
+
+    public static bool operator !=(Nodo a, Nodo b)
+    {
+        bool Notiguales = true;
+        int i = 0;
+        int j;
+        while (Notiguales && i < 3)
+        {
+            j = 0;
+
+            while (Notiguales && j < 3)
+            {
+
+                if (a.tablero[i, j] == b.tablero[i, j])
+                    Notiguales = false;
+
+                j++;
+            }
+
+            i++;
+        }
+        Debug.Log("He entrado en el operator !=        :3");
+        return Notiguales;
+    }
+    */
+
+   
+    public override int GetHashCode()
+    {
+        return 0;
+    }
+
+    public bool Equals(Object a)
+    {
+        Debug.Log("Enmtré en Equals");
+        return false;
+    }
 }
 
 public class IAManager : MonoBehaviour {
@@ -81,7 +144,7 @@ public class IAManager : MonoBehaviour {
 
         Queue<Nodo> frontera = new Queue<Nodo>();
         frontera.Enqueue(raiz);
-        Debug.Log(frontera.Count + " ANtes del puto bucle");
+        Debug.Log(frontera.Count + " ANtes del bucle");
 
   
         List<int[,]> explorado = new List<int[,]>(); //Lista de tableros explorados
@@ -103,127 +166,56 @@ public class IAManager : MonoBehaviour {
             //Para cada una de las direcciones posibles->
             for (int i = 0; i < 4; i++)
             {
-               
+                Movimiento nuevoMov = Movimiento.No;
                 switch (i)
                 {
                     case 0: //ARRIBA
-                        if (movimientoLegalIA(Movimiento.Arriba, filaEmpty, colEmpty))
-                        {
-                            Debug.Log("Movimiento legal arriba");
-                            int[,] tableroHijo = new int[3,3];
-                            igualaTablero(ref tableroHijo, modeloTransicion(front.tablero, Movimiento.Arriba, filaEmpty, colEmpty));
-                            Nodo hijo = new Nodo(tableroHijo, Movimiento.Arriba, front, front.coste + 1);
-                            Debug.Log("Me he creado bien y mi movimiento fue: " + hijo.movRealizado);
-                              
-                            if(!frontera.Contains(hijo) && !containsEnLista(explorado, hijo.tablero))
-                            {
-                                Debug.Log("Test de si se se desapila: " + frontera.Count);
-                                if (comparaTableros(hijo.tablero, solucion))
-                                {
-                                    Debug.Log("SUUUUUUUUUUUUUUUUU");
-                                    //Llama al método de solución
-                                    DevuelveSolucion(hijo);
-                                    fin = true;
-                                }
-
-                                else
-                                {
-                                    frontera.Enqueue(hijo);
-                                    Debug.Log("Hijo metido en la frontera");
-                                 
-                                }
-                            }
-                        }
+                        nuevoMov = Movimiento.Arriba;
                         break;
 
                     case 1: //ABAJO
-                        if (movimientoLegalIA(Movimiento.Abajo, filaEmpty, colEmpty))
-                        {
-                            Debug.Log("Movimiento legal abajo");
-                            int[,] tableroHijo = new int[3, 3];
-                            igualaTablero(ref tableroHijo, modeloTransicion(front.tablero, Movimiento.Abajo, filaEmpty, colEmpty));
-                            Nodo hijo = new Nodo(tableroHijo, Movimiento.Abajo, front, front.coste + 1);
-                            Debug.Log("Me he creado bien y mi movimiento fue: " + hijo.movRealizado);
-
-                            if (!frontera.Contains(hijo) && !containsEnLista(explorado, hijo.tablero))
-                            {
-                                Debug.Log("Test de si se se desapila: " + frontera.Count);
-                                if (comparaTableros(hijo.tablero, solucion))
-                                {
-                                    Debug.Log("SUUUUUUUUUUUUUUUUU");
-                                    //Llama al método de solución
-									DevuelveSolucion(hijo);
-                                    fin = true;
-                                }
-
-                                else
-                                {
-                                    frontera.Enqueue(hijo);
-
-                                }
-                            }
-                        }
+                        nuevoMov = Movimiento.Abajo;
                         break;
 
-                    case 2: //DERECHA
-                        if (movimientoLegalIA(Movimiento.Derecha, filaEmpty, colEmpty))
-                        {
-                            Debug.Log("Movimiento legal derecha");
-                            int[,] tableroHijo = new int[3, 3];
-                            igualaTablero(ref tableroHijo, modeloTransicion(front.tablero, Movimiento.Derecha, filaEmpty, colEmpty));
-                            Nodo hijo = new Nodo(tableroHijo, Movimiento.Derecha, front, front.coste + 1);
-                            Debug.Log("Me he creado bien y mi movimiento fue: " + hijo.movRealizado);
-
-                            if (!frontera.Contains(hijo) && !containsEnLista(explorado, hijo.tablero))
-                            {
-                                Debug.Log("Test de si se se desapila: " + frontera.Count);
-                                if (comparaTableros(hijo.tablero, solucion))
-                                {
-                                    Debug.Log("SUUUUUUUUUUUUUUUUU");
-                                    //Llama al método de solución
-									DevuelveSolucion(hijo);
-                                    fin = true;
-                                }
-
-                                else
-                                {
-                                    frontera.Enqueue(hijo);
-
-                                }
-                            }
-                        }
+                    case 2://Izquierda
+                        nuevoMov = Movimiento.Izquierda;
                         break;
 
-                    case 3: //IZQUIERDA
-                        if (movimientoLegalIA(Movimiento.Izquierda, filaEmpty, colEmpty))
-                        {
-                            Debug.Log("Movimiento legal izquierda");
-                            int[,] tableroHijo = new int[3, 3];
-                            igualaTablero(ref tableroHijo, modeloTransicion(front.tablero, Movimiento.Izquierda, filaEmpty, colEmpty));
-                            Nodo hijo = new Nodo(tableroHijo, Movimiento.Izquierda, front, front.coste + 1);
-                            Debug.Log("Me he creado bien y mi movimiento fue: " + hijo.movRealizado);
-
-                            if (!frontera.Contains(hijo) && !containsEnLista(explorado, hijo.tablero))
-                            {
-                                Debug.Log("Test de si se se desapila: " + frontera.Count);
-                                if (comparaTableros(hijo.tablero, solucion))
-                                {
-                                    Debug.Log("SUUUUUUUUUUUUUUUUU");
-                                    //Llama al método de solución
-									DevuelveSolucion(hijo);
-                                    fin = true;
-                                }
-
-                                else
-                                {
-                                    frontera.Enqueue(hijo);
-
-                                }
-                            }
-                        }
+                    case 3: //Derecha
+                        nuevoMov = Movimiento.Derecha;
                         break;
+                       
 
                 }
+
+                if (movimientoLegalIA(nuevoMov, filaEmpty, colEmpty))
+                {
+                    Debug.Log("Movimiento legal abajo");
+                    int[,] tableroHijo = new int[3, 3];
+                    igualaTablero(tableroHijo, modeloTransicion(front.tablero, nuevoMov, filaEmpty, colEmpty));
+                    Nodo hijo = new Nodo(tableroHijo, nuevoMov, front, front.coste + 1);
+                    Debug.Log("Me he creado bien y mi movimiento fue: " + hijo.movRealizado);
+
+                    if (!frontera.Contains(hijo) && !containsEnLista(explorado, hijo.tablero))
+                    {
+                    
+                        Debug.Log("Test de si se se desapila: " + frontera.Count);
+                        if (comparaTableros(hijo.tablero, solucion))
+                        {
+
+                            //Llama al método de solución
+                            DevuelveSolucion(hijo);
+                            fin = true;
+                        }
+
+                        else
+                        {
+                            frontera.Enqueue(hijo);
+                            Debug.Log("Hijo metido en la frontera");
+                        }
+                    }
+                }
+                
             }
         }
     }
@@ -244,20 +236,23 @@ public class IAManager : MonoBehaviour {
     bool containsEnFrontera(Queue <Nodo> lista, int[,] tablero)
     {
 
-       
+        foreach (Nodo item in lista)
+        {
+            Debug.Log(item.tablero);
+        }
         bool contiene = false;
         if (lista.Count == 0) return contiene; //Si la frontera está vacia, evidentemente no está
 
 
         Nodo a = lista.Dequeue();
         int[,] tableroNodo = new int [3,3];
-        igualaTablero(ref tableroNodo, a.tablero);
+        igualaTablero(tableroNodo, a.tablero);
 
         while (!contiene)
         {
             if (!comparaTableros(tableroNodo, tablero)) {
                 a = lista.Dequeue(); //A LA MIERDAAAA
-                igualaTablero(ref tableroNodo, a.tablero);
+                igualaTablero(tableroNodo, a.tablero);
             }
 
 
@@ -268,7 +263,7 @@ public class IAManager : MonoBehaviour {
        
     }
 
-    bool comparaTableros(int [,] tablero, int[,] tableroFuente)
+    public bool comparaTableros(int [,] tablero, int[,] tableroFuente)
     {
 
         bool iguales = true;
@@ -293,7 +288,7 @@ public class IAManager : MonoBehaviour {
         return iguales;
     }
     
-    void igualaTablero(ref int[,]  tableroDestino, int[,] tableroFuente)
+    void igualaTablero( int[,] tableroDestino, int[,] tableroFuente)
     {
 
        for(int i = 0; i < 3; i++)
@@ -363,38 +358,39 @@ public class IAManager : MonoBehaviour {
 
         int aux; //Valor auxiliar para el swap
 
+
+        int[,] nuevoTablero = new int[3, 3]; 
+        igualaTablero(nuevoTablero, tablero);
+
+
         //Lo desplazamos en funcion del movimiento dado
         switch (nuevoMov)
         {
             case Movimiento.Derecha:
-                aux = tablero[filaEmpty, colEmpty + 1];
-                tablero[filaEmpty, colEmpty + 1] = 0;
-                tablero[filaEmpty, colEmpty] = aux;
+                aux = nuevoTablero[filaEmpty, colEmpty + 1];
+                nuevoTablero[filaEmpty, colEmpty + 1] = 0;
+                nuevoTablero[filaEmpty, colEmpty] = aux;
                 break;
 
             case Movimiento.Izquierda:
-                aux = tablero[filaEmpty, colEmpty - 1];
-                tablero[filaEmpty, colEmpty - 1] = 0;
-                tablero[filaEmpty, colEmpty] = aux;
+                aux = nuevoTablero[filaEmpty, colEmpty - 1];
+                nuevoTablero[filaEmpty, colEmpty - 1] = 0;
+                nuevoTablero[filaEmpty, colEmpty] = aux;
                 break;
 
             case Movimiento.Arriba:
-                aux = tablero[filaEmpty - 1, colEmpty];
-                tablero[filaEmpty - 1, colEmpty] = 0;
-                tablero[filaEmpty, colEmpty] = aux;
+                aux = nuevoTablero[filaEmpty - 1, colEmpty];
+                nuevoTablero[filaEmpty - 1, colEmpty] = 0;
+                nuevoTablero[filaEmpty, colEmpty] = aux;
                 break;
 
             case Movimiento.Abajo:
-                aux = tablero[filaEmpty + 1, colEmpty];
-                tablero[filaEmpty + 1, colEmpty] = 0;
-                tablero[filaEmpty, colEmpty] = aux;
+                aux = nuevoTablero[filaEmpty + 1, colEmpty];
+                nuevoTablero[filaEmpty + 1, colEmpty] = 0;
+                nuevoTablero[filaEmpty, colEmpty] = aux;
                 break;
         }
 
-
-        int[,] nuevoTablero = new int[3, 3]; //Guardo los cambios, y los devuelvo
-                                             //¿Que lo podría pasar por referencia? También.
-        igualaTablero(ref nuevoTablero, tablero);
 
         return nuevoTablero;
 
@@ -413,6 +409,8 @@ public class IAManager : MonoBehaviour {
 
         while (!stop && f < 3)
         {
+            c = 0;
+
             while(!stop && c < 3)
             {
                 if(tablero[f,c] == 0)
