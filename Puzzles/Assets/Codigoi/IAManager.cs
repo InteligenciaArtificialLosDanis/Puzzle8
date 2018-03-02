@@ -13,12 +13,12 @@ public enum Movimiento {Arriba, Abajo, Izquierda, Derecha, No};
 public class Nodo
 {
 
-    public Nodo (int [,] tablrAux, Movimiento operador, Nodo papi,  int c) 
+    public Nodo (int [,] tablrAux, Movimiento operador, Nodo n,  int c) 
     {
         tablero = tablrAux;
         coste = c;
         movRealizado = operador;
-        padre = papi;
+        padre = n;
     }
 
    
@@ -88,7 +88,7 @@ public class Nodo
 
     public bool Equals(Object a)
     {
-        Debug.Log("Enmtré en Equals");
+        Debug.Log("Entré en Equals");
         return false;
     }
 }
@@ -117,6 +117,8 @@ public class IAManager : MonoBehaviour {
                 }
             }
         }
+
+        movsSolucion = new Stack<Movimiento>();
     }
 	
 	// Update is called once per frame
@@ -190,16 +192,15 @@ public class IAManager : MonoBehaviour {
 
                 if (movimientoLegalIA(nuevoMov, filaEmpty, colEmpty))
                 {
-                    Debug.Log("Movimiento legal abajo");
+              
                     int[,] tableroHijo = new int[3, 3];
                     igualaTablero(tableroHijo, modeloTransicion(front.tablero, nuevoMov, filaEmpty, colEmpty));
                     Nodo hijo = new Nodo(tableroHijo, nuevoMov, front, front.coste + 1);
-                    Debug.Log("Me he creado bien y mi movimiento fue: " + hijo.movRealizado);
 
                     if (!frontera.Contains(hijo) && !containsEnLista(explorado, hijo.tablero))
                     {
                     
-                        Debug.Log("Test de si se se desapila: " + frontera.Count);
+   
                         if (comparaTableros(hijo.tablero, solucion))
                         {
 
@@ -211,7 +212,7 @@ public class IAManager : MonoBehaviour {
                         else
                         {
                             frontera.Enqueue(hijo);
-                            Debug.Log("Hijo metido en la frontera");
+                            
                         }
                     }
                 }
@@ -228,6 +229,7 @@ public class IAManager : MonoBehaviour {
         {
             if (comparaTableros(lista[i], tablero))
                 contiene = true;
+            i++;
         }
 
         return contiene;
@@ -304,7 +306,7 @@ public class IAManager : MonoBehaviour {
 	//Método recursivo que carga en una pila (LIFO) los movimientos realizados hasta la solucion
 	void DevuelveSolucion(Nodo nodoSol){
 		if(nodoSol.padre != null){
-			movsSolucion.Push (nodoSol.movRealizado);
+			movsSolucion.Push(nodoSol.movRealizado);
             Debug.Log(nodoSol.movRealizado);
 			DevuelveSolucion (nodoSol.padre);
 		}
